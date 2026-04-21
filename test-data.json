@@ -1,0 +1,80 @@
+{
+  "description": "Sample payloads for testing AI News Briefing without live API credentials.",
+  "test_cases": [
+    {
+      "_id": "newsapi_response",
+      "_description": "Simulates a successful NewsAPI response with 3 articles. Expected: all 3 pass dedup and date filter, 2 score high (OpenAI/Anthropic keywords).",
+      "_expected": "3 articles normalised, engagement scores: article 1 = 20, article 2 = 20, article 3 = 0",
+      "articles": [
+        {
+          "title": "OpenAI announces GPT-5 with enhanced reasoning",
+          "description": "OpenAI has released GPT-5, featuring significant improvements in multi-step reasoning and tool use.",
+          "url": "https://example.com/openai-gpt5",
+          "source": { "name": "TechCrunch" },
+          "publishedAt": "2026-04-21T08:00:00Z",
+          "author": "Jane Smith",
+          "urlToImage": null
+        },
+        {
+          "title": "Anthropic releases Claude 4 with new MCP capabilities",
+          "description": "Claude 4 brings expanded Model Context Protocol support and improved code generation.",
+          "url": "https://example.com/claude-4",
+          "source": { "name": "The Verge" },
+          "publishedAt": "2026-04-21T07:30:00Z",
+          "author": "John Doe",
+          "urlToImage": null
+        },
+        {
+          "title": "Small startup launches AI writing tool",
+          "description": "A Cork-based startup has launched a new AI-powered writing assistant for SMEs.",
+          "url": "https://example.com/ai-writing-tool",
+          "source": { "name": "Irish Tech News" },
+          "publishedAt": "2026-04-21T06:00:00Z",
+          "author": "Unknown",
+          "urlToImage": null
+        }
+      ]
+    },
+    {
+      "_id": "gnews_response",
+      "_description": "Simulates a GNews response. Expected: articles processed, URL deduplicated against NewsAPI results if same URL appears.",
+      "_expected": "2 unique articles added (one URL overlaps with newsapi_response test — deduped)",
+      "articles": [
+        {
+          "title": "Google DeepMind announces Gemini 2.0 Ultra",
+          "description": "Gemini 2.0 Ultra sets new benchmarks on coding and math tasks.",
+          "url": "https://example.com/gemini-2",
+          "source": { "name": "Wired" },
+          "publishedAt": "2026-04-21T07:00:00Z",
+          "author": "Alice Chen",
+          "image": null
+        },
+        {
+          "title": "OpenAI announces GPT-5 with enhanced reasoning",
+          "description": "Duplicate article — same URL as NewsAPI result.",
+          "url": "https://example.com/openai-gpt5",
+          "source": { "name": "GNews Mirror" },
+          "publishedAt": "2026-04-21T08:00:00Z",
+          "author": "Unknown",
+          "image": null
+        }
+      ]
+    },
+    {
+      "_id": "stale_articles",
+      "_description": "Articles older than 24 hours. Expected: all filtered out by date check, empty array returned.",
+      "_expected": "0 articles pass date filter",
+      "articles": [
+        {
+          "title": "Old AI story from three days ago",
+          "description": "This should be filtered out.",
+          "url": "https://example.com/old-story",
+          "source": { "name": "NewsAPI" },
+          "publishedAt": "2026-04-18T09:00:00Z",
+          "author": "Unknown",
+          "urlToImage": null
+        }
+      ]
+    }
+  ]
+}
