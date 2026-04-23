@@ -1,5 +1,5 @@
 {
-  "name": "NewsAPI - AI Daily Briefing V1.0",
+  "name": "Send daily AI news briefing to Slack via NewsAPI and GNews",
   "nodes": [
     {
       "parameters": {
@@ -16,10 +16,7 @@
       "name": "Daily at 9 AM",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [
-        -224,
-        112
-      ]
+      "position": [-224, 112]
     },
     {
       "parameters": {
@@ -64,10 +61,7 @@
       "name": "NewsAPI: AI Articles",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [
-        0,
-        0
-      ],
+      "position": [0, 0],
       "onError": "continueRegularOutput"
     },
     {
@@ -108,10 +102,7 @@
       "name": "GNewsAPI: AI Tech",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [
-        0,
-        192
-      ],
+      "position": [0, 192],
       "onError": "continueRegularOutput"
     },
     {
@@ -123,10 +114,7 @@
       "name": "Merge All News Sources",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        224,
-        112
-      ]
+      "position": [224, 112]
     },
     {
       "parameters": {
@@ -136,10 +124,7 @@
       "name": "Filter & Normalize Articles",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        448,
-        112
-      ]
+      "position": [448, 112]
     },
     {
       "parameters": {
@@ -149,10 +134,7 @@
       "name": "Top 10 Popular Articles",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        672,
-        0
-      ]
+      "position": [672, 0]
     },
     {
       "parameters": {
@@ -162,10 +144,7 @@
       "name": "Top 10 Newest Articles",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        672,
-        208
-      ]
+      "position": [672, 208]
     },
     {
       "parameters": {
@@ -176,10 +155,7 @@
       "name": "Merge Popular + Newest",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        880,
-        112
-      ]
+      "position": [880, 112]
     },
     {
       "parameters": {
@@ -199,15 +175,12 @@
       "name": "Prepare for AI Agent",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [
-        1104,
-        112
-      ]
+      "position": [1104, 112]
     },
     {
       "parameters": {
         "promptType": "define",
-        "text": "Analyze these AI news articles and create a comprehensive daily briefing:\n\n{{ $json.allArticles }}\n\nProvide your response in the following format:\n\n📊 EXECUTIVE SUMMARY\n[2-3 sentences summarizing overall AI landscape]\n\n🔥 TOP TRENDING STORIES\n[For each of top 5 popular articles: Title, Source, 2-3 sentence summary, URL]\n\n📰 LATEST DEVELOPMENTS\n[For each of top 5 newest articles: Title, Source, 1-2 sentence summary, URL]\n\n🔑 KEY INSIGHTS\n[3-5 actionable bullet points]\n\n🏷️ TOPICS COVERED\n[Hashtags of main topics]",
+        "text": "Analyze these AI news articles and create a comprehensive daily briefing:\n\n{{ $json.allArticles }}\n\nProvide your response in the following format:\n\n\ud83d\udcca EXECUTIVE SUMMARY\n[2-3 sentences summarizing overall AI landscape]\n\n\ud83d\udd25 TOP TRENDING STORIES\n[For each of top 5 popular articles: Title, Source, 2-3 sentence summary, URL]\n\n\ud83d\udcf0 LATEST DEVELOPMENTS\n[For each of top 5 newest articles: Title, Source, 1-2 sentence summary, URL]\n\n\ud83d\udd11 KEY INSIGHTS\n[3-5 actionable bullet points]\n\n\ud83c\udff7\ufe0f TOPICS COVERED\n[Hashtags of main topics]",
         "options": {
           "systemMessage": "You are an expert AI news analyst specializing in tracking developments in artificial intelligence, machine learning, and AI tools.\n\nYour task is to analyze a collection of AI-related news articles and create a comprehensive daily briefing.\n\n## Analysis Guidelines\n- Focus on practical implications and technical details\n- Highlight new model releases, MCP developments, API changes, industry shifts\n- Be concise but informative\n- Use professional technical tone\n- Include relevant metrics/numbers when available\n\n## Output Requirements\n- Executive summary: 2-3 sentences capturing overall trends\n- Top stories: Detailed 2-3 sentence summaries with context\n- Latest developments: Brief 1-2 sentence updates\n- Key insights: 3-5 actionable bullet points\n- Topics: Hashtags for main themes\n\n## Important\n- Always include article URLs\n- Separate popular articles from newest articles\n- Focus on accuracy over hype"
         }
@@ -216,10 +189,7 @@
       "name": "AI Agent: Summarize News",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
-      "position": [
-        1328,
-        112
-      ]
+      "position": [1328, 112]
     },
     {
       "parameters": {
@@ -233,10 +203,7 @@
       "name": "OpenAI Chat Model",
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1,
-      "position": [
-        1328,
-        304
-      ]
+      "position": [1328, 304]
     },
     {
       "parameters": {
@@ -267,10 +234,7 @@
       "name": "Slack: Post Summary",
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.2,
-      "position": [
-        1728,
-        96
-      ],
+      "position": [1728, 96],
       "webhookId": "57941ddb-97e7-4b5a-b5f5-67735216525b",
       "onError": "continueRegularOutput"
     },
@@ -280,10 +244,7 @@
       "name": "Outlook: Send Summary",
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2.1,
-      "position": [
-        1616,
-        304
-      ],
+      "position": [1616, 304],
       "onError": "continueRegularOutput"
     },
     {
@@ -292,12 +253,22 @@
       },
       "type": "n8n-nodes-base.linkedIn",
       "typeVersion": 1,
-      "position": [
-        1664,
-        -112
-      ],
+      "position": [1664, -112],
       "id": "b9c47f22-9698-4a2c-b6b4-02e48feeca7c",
       "name": "LinkedIn: Publish Post"
+    },
+    {
+      "id": "ff000001-0000-4000-8000-000000000001",
+      "name": "Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-480, -340],
+      "parameters": {
+        "content": "## Send daily AI news briefing to Slack via NewsAPI and GNews\n\n**Who's it for:** Teams and individuals who want a daily AI industry digest delivered to Slack without manually reading dozens of sources.\n\n**How it works:**\n1. Runs daily at 9 AM\n2. Fetches up to 50 articles each from NewsAPI and GNews in parallel\n3. Deduplicates, filters to last 24 hours, and scores by source reputation and keyword relevance\n4. Splits into top 10 by popularity and top 10 by recency\n5. GPT-4o-mini produces a structured briefing: executive summary, top stories, latest news, and key insights\n6. Posts the briefing to Slack (Outlook and LinkedIn outputs included but optional)\n\n**Requirements:**\n- NewsAPI HTTP Header Auth credential (get key at newsapi.org)\n- GNews HTTP Header Auth credential (get key at gnews.io)\n- OpenAI API credential\n- Slack OAuth2 credential\n\n**How to set up:**\n- Attach credentials to NewsAPI, GNews, OpenAI, and Slack nodes\n- Set your Slack channel ID in `Slack: Post Summary`\n- Wire or remove the Outlook and LinkedIn nodes as needed",
+        "height": 460,
+        "width": 520,
+        "color": 3
+      }
     },
     {
       "id": "aa1b2c3d-4e5f-4a6b-8c9d-0e1f2a3b4c5d",
@@ -516,9 +487,6 @@
     "binaryMode": "separate"
   },
   "versionId": "5fbbe61a-887f-466b-87eb-256bcd85469d",
-  "meta": {
-    "instanceId": "956b0642caa17694415befab574421a5ea4e33d80484849229d4837d84bb9058"
-  },
-  "id": "igx2BKsWR5z3VS92",
+  "meta": null,
   "tags": []
 }
